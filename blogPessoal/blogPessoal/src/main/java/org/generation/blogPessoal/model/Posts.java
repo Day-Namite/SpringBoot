@@ -22,7 +22,7 @@ public class Posts {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long idPosts;
 
 	@NotNull()
 	@Size(min = 5, max = 100)
@@ -46,12 +46,12 @@ public class Posts {
 		this.tema = tema;
 	}
 
-	public long getId() {
-		return id;
+	public long getIdPosts() {
+		return idPosts;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setIdPosts(long idPosts) {
+		this.idPosts = idPosts;
 	}
 
 	public String getTitulo() {

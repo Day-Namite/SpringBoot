@@ -18,7 +18,7 @@ public class Tema {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private long id;
+	private long idTema;
 	
 	@NotNull
 	private String descricao;
@@ -27,11 +27,11 @@ public class Tema {
 	@JsonIgnoreProperties ("tema")
 	private List<Posts> posts;
 	
-	public long getId() {
-		return id;
+	public long getIdTema() {
+		return idTema;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public void setIdTema(long idTema) {
+		this.idTema = idTema;
 	}
 	public String getDescricao() {
 		return descricao;
