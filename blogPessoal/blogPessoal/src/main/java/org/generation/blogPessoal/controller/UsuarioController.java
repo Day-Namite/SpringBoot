@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+
+import org.generation.blogPessoal.DTO.UsuarioLogin;
 import org.generation.blogPessoal.model.Usuario;
-import org.generation.blogPessoal.model.UsuarioLogin;
 import org.generation.blogPessoal.repository.UsuarioRepository;
 import org.generation.blogPessoal.service.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
