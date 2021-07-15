@@ -15,33 +15,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private UserDetailsServiceImplements service;
-	
+
 	@Override
-	protected void configure (AuthenticationManagerBuilder auth) throws Exception {
-	auth.inMemoryAuthentication().withUser("batatinha").password(passwordEncoder()
-			.encode("batatinhas123")).authorities("ROLE_ADMIN");
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin"))
+				.authorities("ROLE_ADMIN");
 		auth.userDetailsService(service);
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-		
-	}
-	@Override
-	protected void configure(HttpSecurity http) throws Exception { 
-		http.authorizeRequests()
-		.antMatchers(HttpMethod.POST,"/api/v1/usuario/login").permitAll()
-		.antMatchers(HttpMethod.POST,"/api/v1/usuario/cadastrar").permitAll()
-		.antMatchers(HttpMethod.GET,"/api/v1/usuario/buscar").permitAll()
-		.anyRequest().authenticated().
-		and().httpBasic()
-		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().cors()
-		.and().csrf().disable();
 
-}
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/usuario/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/v1/usuario/cadastrar").permitAll().anyRequest().authenticated()
+				.and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().cors().and().csrf().disable();
+
+	}
 }

@@ -25,7 +25,7 @@ public class UsuarioTest {
 
 	@BeforeEach
 	public void start() {
-		usuario = new Usuario(null, "day@gmail.com", "Day", "2345678");
+		usuario = new Usuario("day@gmail.com", "Day", "2345678");
 	}
 
 	@Test

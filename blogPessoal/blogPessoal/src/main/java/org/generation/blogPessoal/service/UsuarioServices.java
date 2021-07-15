@@ -18,31 +18,30 @@ public class UsuarioServices {
 
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
 		Optional<Usuario> usuarioExistente = repository.findByEmail(usuario.getEmail());
-		if(usuarioExistente.isPresent())
-	{
-		return Optional.empty();
-	}else
-	{
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String senhaCriptografada = encoder.encode(usuario.getSenha());
-		usuario.setSenha(senhaCriptografada);
-		return Optional.ofNullable(repository.save(usuario));
-	}
+		if (usuarioExistente.isPresent()) {
+			return Optional.empty();
+		} else {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String senhaCriptografada = encoder.encode(usuario.getSenha());
+			usuario.setSenha(senhaCriptografada);
+			return Optional.ofNullable(repository.save(usuario));
+		}
 	}
 
-	public Optional<UsuarioLogin> loginUsuario (Optional<UsuarioLogin> loginUsuario){
+	public Optional<UsuarioLogin> loginUsuario(Optional<UsuarioLogin> loginUsuario) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<Usuario> usuarioExistente = repository.findByEmail(loginUsuario.get().getEmail());
 
-		if(usuarioExistente.isPresent()) {
-			if(encoder.matches(loginUsuario.get().getSenha(), usuarioExistente.get().getSenha())) {
+		if (usuarioExistente.isPresent()) {
+			if (encoder.matches(loginUsuario.get().getSenha(), usuarioExistente.get().getSenha())) {
 				String auth = loginUsuario.get().getEmail() + ":" + loginUsuario.get().getSenha();
 				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
 				String authHeader = "Basic " + new String(encodedAuth);
-				
-				loginUsuario.get().setToken(authHeader);				
+
+				loginUsuario.get().setToken(authHeader);
 				loginUsuario.get().setEmail(usuarioExistente.get().getEmail());
 				loginUsuario.get().setSenha(usuarioExistente.get().getSenha());
+				loginUsuario.get().setUsuario(usuarioExistente.get().getUsuario());
 
 				return loginUsuario;
 			}

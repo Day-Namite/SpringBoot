@@ -22,7 +22,7 @@ public class Posts {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idPosts;
+	private Long idPosts;
 
 	@NotNull()
 	@Size(min = 5, max = 100)
@@ -33,6 +33,18 @@ public class Posts {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
+	
+	@ManyToOne()
+	@JsonIgnoreProperties("posts")
+	private Usuario usuario;
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	@ManyToOne
 	@JsonIgnoreProperties("posts")
@@ -46,11 +58,11 @@ public class Posts {
 		this.tema = tema;
 	}
 
-	public long getIdPosts() {
+	public Long getIdPosts() {
 		return idPosts;
 	}
 
-	public void setIdPosts(long idPosts) {
+	public void setIdPosts(Long idPosts) {
 		this.idPosts = idPosts;
 	}
 
