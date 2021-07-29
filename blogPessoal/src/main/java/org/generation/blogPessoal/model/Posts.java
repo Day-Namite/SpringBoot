@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "post")
+@Table(name = "tb_post")
 @Component
 public class Posts {
 
@@ -37,14 +37,6 @@ public class Posts {
 	@ManyToOne()
 	@JsonIgnoreProperties("posts")
 	private Usuario usuario;
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	@ManyToOne
 	@JsonIgnoreProperties("posts")
@@ -88,6 +80,14 @@ public class Posts {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

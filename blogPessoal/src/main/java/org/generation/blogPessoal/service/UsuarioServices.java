@@ -3,7 +3,9 @@ package org.generation.blogPessoal.service;
 import java.nio.charset.Charset;
 import java.util.Optional;
 import org.apache.commons.codec.binary.Base64;
+import org.generation.blogPessoal.DTO.PostsDTO;
 import org.generation.blogPessoal.DTO.UsuarioLogin;
+import org.generation.blogPessoal.model.Posts;
 import org.generation.blogPessoal.model.Usuario;
 import org.generation.blogPessoal.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,14 @@ public class UsuarioServices {
 			return Optional.ofNullable(repository.save(usuario));
 		}
 	}
+	public Optional<Usuario> editUsuario(Long idUsuario, UsuarioLogin usuario){
+		return repository.findById(idUsuario).map(usuarioEditado -> {
+			usuarioEditado.setUsuario(usuario.getUsuario());
+			return Optional.ofNullable(repository.save(usuarioEditado));
+		}).orElseGet(() -> {
+			return Optional.empty();
+		});
+	}
 
 	public Optional<UsuarioLogin> loginUsuario(Optional<UsuarioLogin> loginUsuario) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -42,6 +52,8 @@ public class UsuarioServices {
 				loginUsuario.get().setEmail(usuarioExistente.get().getEmail());
 				loginUsuario.get().setSenha(usuarioExistente.get().getSenha());
 				loginUsuario.get().setUsuario(usuarioExistente.get().getUsuario());
+				loginUsuario.get().setFoto(usuarioExistente.get().getFoto());
+				loginUsuario.get().setTipoUsuario(usuarioExistente.get().getTipoUsuario());
 
 				return loginUsuario;
 			}

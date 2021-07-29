@@ -1,8 +1,8 @@
 package org.generation.blogPessoal.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,13 +36,14 @@ public class Usuario {
 	@Size(min = 8, max = 100)
 	private String senha;
 	
-	@OneToMany(mappedBy = "usuario")
-	@JsonIgnoreProperties("usuario")
-	private List<Posts> post = new ArrayList<>();
+	private String foto;
+	
+	private String tipoUsuario;
+	
 
-	public List<Posts> getPosts() {
-		return post;
-	}
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<Posts> posts;
 
 	public Usuario() {
 		super();
@@ -88,6 +89,29 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	public List<Posts> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Posts> posts) {
+		this.posts = posts;
 	}
 
 }
